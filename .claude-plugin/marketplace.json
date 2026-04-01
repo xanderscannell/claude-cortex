@@ -1,0 +1,20 @@
+{
+  "name": "claude-cortex-marketplace",
+  "owner": {
+    "name": "xanderscannell"
+  },
+  "metadata": {
+    "description": "Context management, project guidelines, and code review for AI coding assistants",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "claude-cortex",
+      "description": "Prevent context degradation across sessions, generate and enforce project coding guidelines, and get structured security-first code reviews — all in one plugin.",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/xanderscannell/claude-cortex.git"
+      }
+    }
+  ]
+}
