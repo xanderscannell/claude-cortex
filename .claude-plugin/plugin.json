@@ -2,18 +2,21 @@
   "name": "claude-cortex",
   "version": "1.0.0",
   "description": "Context management, project guidelines, and code review for AI coding assistants. Prevent context degradation, enforce coding standards, and get structured code reviews — all in one plugin.",
-  "author": "xanderscannell",
+  "author": {
+    "name": "xanderscannell",
+    "url": "https://github.com/xanderscannell"
+  },
   "license": "MIT",
   "homepage": "https://github.com/xanderscannell/claude-cortex",
   "skills": [
-    "skills/context-init",
-    "skills/context",
-    "skills/context-checkpoint",
-    "skills/guidelines-init",
-    "skills/guidelines-review",
-    "skills/code-review"
+    "./skills/context-init",
+    "./skills/context",
+    "./skills/context-checkpoint",
+    "./skills/guidelines-init",
+    "./skills/guidelines-review",
+    "./skills/code-review"
   ],
   "agents": [
-    "agents/reviewer.md"
+    "./agents/reviewer.md"
   ]
 }
