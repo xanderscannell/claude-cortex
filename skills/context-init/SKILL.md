@@ -5,17 +5,26 @@ description: Initialize CDS framework in a new project
 
 # Initialize CDS Prevention Framework
 
-Initialize the Context Degradation System prevention framework in a project. This creates the `.context/` directory structure, `CLAUDE.md` bootloader (for Claude Code), and `.github/copilot-instructions.md` bootloader (for GitHub Copilot), then analyzes your codebase to fill in project-specific details.
+Initialize the Context Degradation System prevention framework in a project. This creates the `.context/` directory structure and the appropriate bootloader file(s) for the user's AI tool, then analyzes the codebase to fill in project-specific details.
 
 ## How to Use
 
 When the user runs `/context-init`:
 
-1. **Check if already initialized** — Look for existing `.context/` directory, `CLAUDE.md`, and `.github/copilot-instructions.md`
+1. **Detect the current environment** — Check your system prompt to determine which AI tool is running this skill. Create the matching bootloader:
+
+   | Environment | Bootloader |
+   |-------------|-----------|
+   | Claude Code | `CLAUDE.md` |
+   | GitHub Copilot | `.github/copilot-instructions.md` |
+
+   If you can't determine the environment, ask the user. All bootloaders use the same template content — only the file location differs.
+
+2. **Check if already initialized** — Look for existing `.context/` directory and bootloader files
    - If they exist, ask if the user wants to reinitialize (this will overwrite existing files)
    - If they don't exist, proceed with initialization
 
-2. **Ask the user which context files to include**:
+3. **Ask the user which context files to include**:
 
    > How would you like to set up context?
    >
@@ -34,18 +43,18 @@ When the user runs `/context-init`:
    > 5. `MASTER_PLAN.md` — Implementation roadmap and phases
    > 6. `SETUP.md` — Dev environment setup instructions
 
-   The bootloader files (`CLAUDE.md` and `.github/copilot-instructions.md`) and the `CHECKPOINTS/` directory are always created regardless of selection — they are required for the framework to function.
+   The bootloader and `CHECKPOINTS/` directory are always created regardless of selection.
 
    Only create the selected context files in the steps below.
 
-3. **Create the directory structure** — Create `.context/` and `CHECKPOINTS/` subdirectory. Only include selected context files:
+4. **Create the directory structure** — Create `.context/` and `CHECKPOINTS/` subdirectory. Only include selected context files:
    ```
    .context/
    ├── [selected files...]
    └── CHECKPOINTS/
    ```
 
-4. **Create files from templates** — Read each template from the plugin's `templates/` directory and copy it to the target project location. Only create files the user selected (bootloaders are always created):
+5. **Create files from templates** — Copy from `templates/context/` to target locations. Create the bootloader for the detected environment (step 1), and only the context files the user selected (step 3):
 
    | Template source | Target location | Always created? |
    |----------------|-----------------|-----------------|
@@ -58,20 +67,20 @@ When the user runs `/context-init`:
    | `templates/context/MASTER_PLAN.md` | `.context/MASTER_PLAN.md` | Only if selected |
    | `templates/context/SETUP.md` | `.context/SETUP.md` | Only if selected |
 
-   When using a subset of files, update the bootloader files (`CLAUDE.md` and `.github/copilot-instructions.md`) to only reference the context files that were created. Remove references to files that were not selected so the AI assistant doesn't try to read nonexistent files.
+   When using a subset of context files, update the bootloader to only reference the files that were created.
 
-4. **Analyze the codebase** to detect:
+6. **Analyze the codebase** to detect:
    - Project name (from package.json, Cargo.toml, pyproject.toml, go.mod, or directory name)
    - Description (from README.md if present)
    - Tech stack (languages, frameworks, libraries)
    - Conventions (linting rules, naming patterns, test framework)
    - Architecture (key modules, directory structure)
 
-5. **Fill in placeholders** — Replace `[PLACEHOLDER]` markers in the created files with detected values
+7. **Fill in placeholders** — Replace `[PLACEHOLDER]` markers in the created files with detected values
 
-6. **Suggest a commit**:
+8. **Suggest a commit** — Include only the files that were actually created:
    ```bash
-   git add CLAUDE.md .github/copilot-instructions.md .context/
+   git add .context/ [bootloader files created]
    git commit -m "Initialize CDS prevention context framework"
    ```
 
@@ -83,14 +92,11 @@ Once files are created and placeholders filled:
 
 1. Tell the user what was created (list only the files that were actually created)
 2. Summarize detected project details (name, tech stack, etc.)
-3. Explain that **both `CLAUDE.md` and `.github/copilot-instructions.md`** were created:
-   - `CLAUDE.md` is read by Claude Code
-   - `.github/copilot-instructions.md` is read by GitHub Copilot
-   - Both contain the same context-loading instructions
+3. Explain which bootloader was created and that it's read automatically by the detected tool
 4. Suggest they review and customize the created files (only mention files that exist):
-   - `CLAUDE.md` and `.github/copilot-instructions.md` — Update the Current Focus section
+   - Bootloader — Update the Current Focus section
    - `MASTER_PLAN.md` — Define implementation phases (if created)
    - `CONVENTIONS.md` — Verify detected conventions (if created)
    - `ARCHITECTURE.md` — Refine system design (if created)
-5. If the user chose a subset, mention they can add more context files later by running `/context-init` again
+5. If the user chose a subset of context files, mention they can add more later by running `/context-init` again
 6. Suggest the commit command shown above
