@@ -20,7 +20,7 @@ Compatible with **Claude Code** and **GitHub Copilot**.
 
 ## Quick Start
 
-### Install
+### Install (Claude Code)
 
 ```bash
 # Marketplace
@@ -32,6 +32,14 @@ git clone https://github.com/xanderscannell/claude-cortex.git
 /plugin marketplace add ./claude-cortex
 /plugin install claude-cortex
 ```
+### Install (VS Code)
+
+```bash
+# Open the Command Palette (F1) and run:
+Chat: Install Plugin From Source
+# then point to this directory.
+```
+
 
 ### Set up a project
 
