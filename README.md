@@ -16,7 +16,7 @@ Compatible with **Claude Code** and **GitHub Copilot**.
 |-------|---------------|
 | [Context Framework](docs/context-framework.md) | What CDS is, how `.context/` works, daily workflow, templates |
 | [Project Guidelines](docs/guidelines.md) | Simple vs full mode, severity system, review heuristics, subagent |
-| [Code Review](docs/code-review.md) | Severity tiers, testability assessment, output format |
+| [Code Review](docs/code-review.md) | `/code-review` vs `/ult-code-review`, severity tiers, 10-agent suite, testability assessment |
 
 ## Quick Start
 
