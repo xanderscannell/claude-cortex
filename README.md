@@ -51,10 +51,9 @@ Chat: Install Plugin From Source
 ### Daily use
 
 ```bash
-/context                 # Load project context at session start
+/context-session         # Load project context at session start; update at session end
 /code-review             # Review current changes
 /guidelines-review --pr  # Check PR against project guidelines
-/context-checkpoint      # Save session progress
 ```
 
 ## Skills
@@ -62,8 +61,7 @@ Chat: Install Plugin From Source
 | Command | What it does |
 |---------|-------------|
 | `/context-init` | Scaffold `.context/` directory, `CLAUDE.md`, and `.github/copilot-instructions.md` with auto-detected project details |
-| `/context` | Load context at session start, update status at session end |
-| `/context-checkpoint` | Create a timestamped session checkpoint in `.context/CHECKPOINTS/` |
+| `/context-session` | Load context at session start, update status at session end |
 | `/guidelines-init` | Generate `PROJECT_GUIDELINES.md` — simple (flat rules) or `--full` (categorized + severity) |
 | `/guidelines-review` | Review code against guidelines. Scopes: `--pr`, `--staged`, `--changed`, file, or directory |
 | `/code-review` | Security-first code review with 4 severity tiers, testability analysis, and merge verdict |
@@ -76,8 +74,7 @@ claude-cortex/
 |   |-- plugin.json              # Plugin manifest
 |-- skills/
 |   |-- context-init/             # /context-init — scaffold context framework
-|   |-- context/                 # /context — load/update session context
-|   |-- context-checkpoint/      # /context-checkpoint — save session snapshot
+|   |-- context-session/         # /context-session — load/update session context
 |   |-- guidelines-init/         # /guidelines-init — generate guidelines
 |   |-- guidelines-review/       # /guidelines-review — compliance review
 |   |-- code-review/             # /code-review — structured code review
@@ -89,7 +86,7 @@ claude-cortex/
 |       |-- copilot-instructions.md  # Bootloader template (GitHub Copilot)
 |       |-- CURRENT_STATUS.md    # Project status template
 |       |-- ARCHITECTURE.md      # System design template
-|       |-- CONVENTIONS.md       # Coding standards template
+|       |-- CONVENTIONS.md       # Tooling and environment setup template
 |       |-- DECISIONS.md         # ADR template
 |       |-- MASTER_PLAN.md       # Roadmap template
 |       |-- SETUP.md             # Dev setup template
@@ -108,9 +105,9 @@ claude-cortex/
 
 Each system works standalone, but they're stronger together:
 
-- **`/context`** loads your project's conventions → **`/code-review`** catches violations in real-time
+- **`/context-session`** loads your project's conventions → **`/code-review`** catches violations in real-time
 - **`/guidelines-init`** codifies your standards → **`/guidelines-review`** enforces them automatically
-- **`/context-checkpoint`** records what changed → **`/context`** picks it up next session
+- **`/context-session`** records what changed at session end and picks it up next session
 
 Future `/cortex` skills will combine these systems for deeper integration.
 

@@ -22,6 +22,7 @@ When the user runs `/context-init`:
 
 2. **Check if already initialized** — Look for existing `.context/` directory and bootloader files
    - If they exist, ask if the user wants to reinitialize (this will overwrite existing files)
+   - **Important:** If reinitializing and `.context/CONVENTIONS.md` exists with code quality rules (naming conventions, error handling, testing standards, git workflow) AND `PROJECT_GUIDELINES.md` does not exist, warn the user: "Your current CONVENTIONS.md contains code quality rules that will be removed during reinitialization. Run `/guidelines-init` first to migrate them to PROJECT_GUIDELINES.md, or they will be lost."
    - If they don't exist, proceed with initialization
 
 3. **Ask the user which context files to include**:
@@ -38,7 +39,7 @@ When the user runs `/context-init`:
    >
    > 1. `CURRENT_STATUS.md` — Track what's done, in progress, and next
    > 2. `ARCHITECTURE.md` — Document system design and components
-   > 3. `CONVENTIONS.md` — Coding standards and patterns
+   > 3. `CONVENTIONS.md` — Tooling, environment, and build commands
    > 4. `DECISIONS.md` — Architecture Decision Records
    > 5. `MASTER_PLAN.md` — Implementation roadmap and phases
    > 6. `SETUP.md` — Dev environment setup instructions
@@ -73,10 +74,13 @@ When the user runs `/context-init`:
    - Project name (from package.json, Cargo.toml, pyproject.toml, go.mod, or directory name)
    - Description (from README.md if present)
    - Tech stack (languages, frameworks, libraries)
-   - Conventions (linting rules, naming patterns, test framework)
+   - Tooling (formatter, linter, test framework, build commands)
    - Architecture (key modules, directory structure)
+   - Whether `PROJECT_GUIDELINES.md` already exists in the project root
 
-7. **Fill in placeholders** — Replace `[PLACEHOLDER]` markers in the created files with detected values
+7. **Fill in placeholders** — Replace `[PLACEHOLDER]` markers in the created files with detected values. When filling in `CONVENTIONS.md`, populate only tooling and environment fields (language, runtime, formatter, linter, test framework, build commands). Do not add naming conventions, error handling patterns, testing standards, git workflow, or architecture rules — those belong in `PROJECT_GUIDELINES.md`.
+   - If `PROJECT_GUIDELINES.md` already exists: the `## Project Guidelines Reference` section in `CONVENTIONS.md` should confirm it as the source of truth for code quality rules.
+   - If `PROJECT_GUIDELINES.md` does not exist: the `## Project Guidelines Reference` section should note that `/guidelines-init` can create it.
 
 8. **Suggest a commit** — Include only the files that were actually created:
    ```bash
@@ -96,7 +100,10 @@ Once files are created and placeholders filled:
 4. Suggest they review and customize the created files (only mention files that exist):
    - Bootloader — Update the Current Focus section
    - `MASTER_PLAN.md` — Define implementation phases (if created)
-   - `CONVENTIONS.md` — Verify detected conventions (if created)
+   - `CONVENTIONS.md` — Verify detected tooling and environment info (if created)
    - `ARCHITECTURE.md` — Refine system design (if created)
-5. If the user chose a subset of context files, mention they can add more later by running `/context-init` again
+5. **Mention PROJECT_GUIDELINES.md**:
+   - If `PROJECT_GUIDELINES.md` already exists: note that it was detected and `CONVENTIONS.md` references it as the source of truth for code quality rules
+   - If `PROJECT_GUIDELINES.md` does not exist: recommend running `/guidelines-init` to create code quality rules (naming, architecture, error handling, testing, security, performance, git workflow) — explain that `CONVENTIONS.md` covers tooling/environment while `PROJECT_GUIDELINES.md` covers code quality standards
+6. If the user chose a subset of context files, mention they can add more later by running `/context-init` again
 6. Suggest the commit command shown above

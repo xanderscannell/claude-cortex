@@ -16,7 +16,7 @@ Your Project
 ├── .context/               ← Persistent project context
 │   ├── CURRENT_STATUS.md   ← Updated every session
 │   ├── ARCHITECTURE.md     ← System design
-│   ├── CONVENTIONS.md      ← Coding standards
+│   ├── CONVENTIONS.md      ← Tooling and environment setup
 │   ├── DECISIONS.md        ← Architecture Decision Records
 │   ├── MASTER_PLAN.md      ← Implementation roadmap
 │   ├── SETUP.md            ← Dev environment setup
@@ -31,16 +31,15 @@ The bootloader files (`CLAUDE.md` and `.github/copilot-instructions.md`) are rea
 | Command | Description |
 |---------|-------------|
 | `/context-init` | Initialize the framework in a new project |
-| `/context` | Load context at session start, update at session end |
-| `/context-checkpoint` | Create a session checkpoint documenting progress |
+| `/context-session` | Load context at session start, update at session end |
 
 ## Daily Workflow
 
 **Start of session**: Run `/context` (or let it auto-invoke). The assistant reads context files and understands project state.
 
-**During work**: The assistant follows `CONVENTIONS.md`, checks `DECISIONS.md` before proposing architectural changes, and records new decisions when significant choices are made.
+**During work**: The assistant follows `CONVENTIONS.md` for tooling setup and `PROJECT_GUIDELINES.md` for code quality rules, checks `DECISIONS.md` before proposing architectural changes, records new decisions when significant choices are made, and updates `PROJECT_GUIDELINES.md` when new patterns are adopted.
 
-**End of session**: Run `/context-checkpoint` to create a checkpoint, or the assistant updates `CURRENT_STATUS.md` automatically.
+**End of session**: The assistant updates `CURRENT_STATUS.md`, checks whether `PROJECT_GUIDELINES.md` needs updating based on what changed, creates a checkpoint if the session was significant, and suggests a commit.
 
 **Multi-machine sync**: Just `git pull`. Context travels with the code.
 
@@ -54,7 +53,8 @@ The bootloader files (`CLAUDE.md` and `.github/copilot-instructions.md`) are rea
 | `.context/MASTER_PLAN.md` | Implementation roadmap | When phases change |
 | `.context/ARCHITECTURE.md` | System design | When architecture evolves |
 | `.context/DECISIONS.md` | Architecture Decision Records | When decisions are made |
-| `.context/CONVENTIONS.md` | Coding standards | Rarely |
+| `.context/CONVENTIONS.md` | Tooling and environment setup | Rarely |
+| `PROJECT_GUIDELINES.md` | Code quality rules (naming, architecture, testing, security) | When patterns evolve |
 | `.context/SETUP.md` | Dev environment setup | Rarely |
 | `.context/CHECKPOINTS/` | Session summaries | End of long sessions |
 
@@ -64,9 +64,10 @@ After running `/context-init`, these files need your input:
 
 1. **`CLAUDE.md` / `.github/copilot-instructions.md`** — Fill in `[ONE_SENTENCE_DESCRIPTION]` and the Current Focus section
 2. **`.context/MASTER_PLAN.md`** — Define your implementation phases and goals
-3. **`.context/CONVENTIONS.md`** — Document your language, linter, naming conventions, and test framework
-4. **`.context/ARCHITECTURE.md`** — Describe your system components and how they connect
-5. **`.context/SETUP.md`** — Document how to set up the dev environment
+3. **`.context/CONVENTIONS.md`** — Document your language, tooling (formatter, linter, test runner), and build commands
+4. **`PROJECT_GUIDELINES.md`** — Run `/guidelines-init` to create code quality rules: naming, architecture, error handling, testing standards, security, and performance
+5. **`.context/ARCHITECTURE.md`** — Describe your system components and how they connect
+6. **`.context/SETUP.md`** — Document how to set up the dev environment
 
 You can also let your AI assistant fill these in — it will detect the `[PLACEHOLDER]` markers and offer to initialize them by exploring your codebase.
 

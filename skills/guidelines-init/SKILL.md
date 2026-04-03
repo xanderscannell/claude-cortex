@@ -27,6 +27,37 @@ for project conventions. This file is later consumed by `/guidelines-review`.
 
 ---
 
+## CONVENTIONS.md Integration
+
+Before generating `PROJECT_GUIDELINES.md`, check for an existing `.context/CONVENTIONS.md` (also check the project root if not found in `.context/`).
+
+### If CONVENTIONS.md exists with code quality rules
+
+Code quality rules include: naming conventions, file organization / directory structure rules, error handling patterns, testing conventions (naming, coverage targets — not the framework or run command), git conventions (commit format, branch naming), import ordering rules (not the tool that enforces them).
+
+If any of these are found:
+
+1. **Extract and migrate** those rules into the `PROJECT_GUIDELINES.md` generation process:
+   - In simple mode: include them in the flat rules list
+   - In full mode: place them in the appropriate category sections (Naming → Code Style, file organization → Architecture, etc.)
+   - Present the migration to the user before generating: "I found these code quality rules in your CONVENTIONS.md that belong in PROJECT_GUIDELINES.md: [list]. I will include them in the generated guidelines."
+
+2. **After generating PROJECT_GUIDELINES.md**, update `CONVENTIONS.md`:
+   - Remove the migrated code quality sections
+   - Keep only: Language and Runtime, Tooling (formatter/linter/type checker), Testing (framework + run command only), Build and Run
+   - Ensure the `## Project Guidelines Reference` section exists and points to `PROJECT_GUIDELINES.md`
+   - Show the user what was removed and confirm before writing
+
+### If CONVENTIONS.md exists but has only tooling/environment content
+
+No migration needed. After generating `PROJECT_GUIDELINES.md`, add the `## Project Guidelines Reference` section to `CONVENTIONS.md` if it is missing.
+
+### If CONVENTIONS.md does not exist
+
+No migration needed. Mention to the user that `/context-init` can create `CONVENTIONS.md` for tooling and environment setup, and it will automatically reference the generated guidelines file.
+
+---
+
 ## Simple Mode Workflow
 
 Default when no flag is provided. Optimized for getting rules on paper fast.
@@ -42,6 +73,7 @@ exhaustive convention analysis.
 - Note the test framework if obvious from config files.
 - Check for monorepo signals: `Glob("packages/*/package.json")`, `Glob("apps/*/")`,
   `lerna.json`, `pnpm-workspace.yaml`, `turbo.json`.
+- Check for `.context/CONVENTIONS.md` to detect existing code quality rules to migrate (see CONVENTIONS.md Integration above).
 
 Do NOT run the full signal file table or pattern detection. Keep this under 30 seconds.
 
@@ -98,10 +130,11 @@ Write `PROJECT_GUIDELINES.md` with this format:
 - Do NOT add severity tags. A rule is a rule — if it's in the file, it matters.
 - Do NOT add category headings (Code Style, Architecture, etc.).
 
-After writing, tell the user the file is ready and offer: "Want to add, remove, or
-reword anything?" — but skip the summary table. The file is short enough to read.
+After writing, if a CONVENTIONS.md migration was performed (see CONVENTIONS.md Integration above), update `.context/CONVENTIONS.md` now — remove the migrated sections and ensure the `## Project Guidelines Reference` section is present.
 
-Recommend committing `PROJECT_GUIDELINES.md` to the repo.
+Tell the user the file is ready and offer: "Want to add, remove, or reword anything?" — but skip the summary table. The file is short enough to read.
+
+Recommend committing `PROJECT_GUIDELINES.md` (and the updated `CONVENTIONS.md` if modified) to the repo.
 
 ---
 
@@ -131,6 +164,7 @@ Read files, don't just check existence.
 | `.github/workflows/*.yml` | CI/CD patterns, checks, test commands |
 | `.editorconfig` | Indentation, line endings, charset |
 | `CLAUDE.md` / `.github/copilot-instructions.md` | Prior AI-assistant conventions |
+| `.context/CONVENTIONS.md` | Existing naming, error handling, testing, git conventions to migrate |
 | `.gitignore` | What the project considers generated/private |
 
 **Pattern detection (use Glob and Grep, not shell commands):**
@@ -150,6 +184,8 @@ Read files, don't just check existence.
 
 Present auto-detected findings as a summary, then ask targeted questions to fill gaps.
 Organize questions by category. **Skip categories already fully answered by auto-detection.**
+
+If code quality rules were found in `.context/CONVENTIONS.md`, pre-populate the interview with those rules. Present them as "detected from your existing CONVENTIONS.md" and ask if the user wants to keep, modify, or discard each before proceeding.
 
 Ask these in order:
 
@@ -284,7 +320,9 @@ Ask if they want to:
 - Add, remove, or modify any specific rules
 - Change the location of the file
 
-Once confirmed, recommend committing `PROJECT_GUIDELINES.md` to the repo.
+Once confirmed, if a CONVENTIONS.md migration was performed (see CONVENTIONS.md Integration above), update `.context/CONVENTIONS.md` now — remove the migrated sections and ensure the `## Project Guidelines Reference` section is present.
+
+Recommend committing `PROJECT_GUIDELINES.md` (and the updated `CONVENTIONS.md` if modified) to the repo.
 
 ---
 
@@ -317,6 +355,15 @@ or `apps/` directory, or `lerna.json` / `pnpm-workspace.yaml` / `turbo.json`), a
 whether guidelines should be global or per-package. In both modes, generate a
 root-level file. In simple mode, keep it as a flat list. In full mode, note where
 per-package overrides would go.
+
+**CONVENTIONS.md with only tooling content:** If `.context/CONVENTIONS.md` exists but
+contains only tooling and environment information (no naming, error handling, testing
+conventions, git workflow, or architecture rules), skip migration. Just add the
+`## Project Guidelines Reference` section if missing.
+
+**CONVENTIONS.md at project root instead of .context/:** If `CONVENTIONS.md` is found
+at the project root rather than `.context/`, treat it the same way — scan for code
+quality rules, migrate them, and update the file.
 
 **Existing guidelines with mode mismatch:**
 - Running with no flag or `--simple` when a full-mode file exists: warn the user that

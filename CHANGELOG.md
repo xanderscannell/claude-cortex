@@ -2,6 +2,20 @@
 
 All notable changes to claude-cortex are documented here.
 
+## [1.2.0] — 2026-04-03
+
+### Removed
+- `/context-checkpoint` skill — all session-end behavior is now handled by `/context-session`. Checkpoint files in `.context/CHECKPOINTS/` continue to be created by `/context-session` and the directory is preserved.
+
+### Changed
+- `/context-session` session-end now includes a PROJECT_GUIDELINES.md staleness check — if the session introduced new patterns, architecture changes, or new conventions, the assistant updates `PROJECT_GUIDELINES.md` directly or flags it for next session
+- `/context-session` checkpoint creation now references `templates/context/CHECKPOINT_TEMPLATE.md` for consistent checkpoint format
+- `CONVENTIONS.md` template narrowed to tooling and environment only (language, runtime, formatter, linter, test runner, build commands) — code quality rules (naming, architecture, error handling, testing standards, security, performance, git workflow) belong in `PROJECT_GUIDELINES.md`
+- Both bootloader templates (`CLAUDE.md`, `copilot-instructions.md`) now load `PROJECT_GUIDELINES.md` at session start and instruct agents to keep it updated as the codebase evolves
+- `guidelines-init` now detects and migrates code quality rules from existing `CONVENTIONS.md` into the generated `PROJECT_GUIDELINES.md`, then narrows `CONVENTIONS.md` to tooling-only
+
+---
+
 ## [1.1.1] — 2026-04-03
 
 ### Changed
