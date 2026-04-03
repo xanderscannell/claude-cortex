@@ -44,6 +44,8 @@ Chat: Install Plugin From Source
 ### Set up a project
 
 ```bash
+/cortex-init             # Full setup: .context/ framework + PROJECT_GUIDELINES.md
+# Or run them separately:
 /context-init            # Create .context/ framework + bootloaders
 /guidelines-init         # Generate PROJECT_GUIDELINES.md
 ```
@@ -60,11 +62,13 @@ Chat: Install Plugin From Source
 
 | Command | What it does |
 |---------|-------------|
+| `/cortex-init` | Full framework setup — runs `/context-init` and `/guidelines-init` in parallel via two subagents, then wires the two systems together |
 | `/context-init` | Scaffold `.context/` directory, `CLAUDE.md`, and `.github/copilot-instructions.md` with auto-detected project details |
-| `/context-session` | Load context at session start, update status at session end |
+| `/context-session` | Load context at session start, update status and guidelines at session end |
 | `/guidelines-init` | Generate `PROJECT_GUIDELINES.md` — simple (flat rules) or `--full` (categorized + severity) |
 | `/guidelines-review` | Review code against guidelines. Scopes: `--pr`, `--staged`, `--changed`, file, or directory |
 | `/code-review` | Security-first code review with 4 severity tiers, testability analysis, and merge verdict |
+| `/ult-code-review` | 10 parallel specialist agents for near-complete bug and vulnerability coverage |
 
 ## What's Inside
 
@@ -73,11 +77,13 @@ claude-cortex/
 |-- .claude-plugin/
 |   |-- plugin.json              # Plugin manifest
 |-- skills/
+|   |-- cortex-init/             # /cortex-init — full framework setup
 |   |-- context-init/             # /context-init — scaffold context framework
 |   |-- context-session/         # /context-session — load/update session context
 |   |-- guidelines-init/         # /guidelines-init — generate guidelines
 |   |-- guidelines-review/       # /guidelines-review — compliance review
 |   |-- code-review/             # /code-review — structured code review
+|   |-- ult-code-review/         # /ult-code-review — 10-agent parallel review
 |-- agents/
 |   |-- reviewer.md              # Subagent for parallel guideline reviews (51+ files)
 |-- templates/
@@ -105,15 +111,14 @@ claude-cortex/
 
 Each system works standalone, but they're stronger together:
 
-- **`/context-session`** loads your project's conventions → **`/code-review`** catches violations in real-time
+- **`/cortex-init`** sets up the full framework in one command — context + guidelines wired together from the start
+- **`/context-session`** loads conventions and guidelines at session start, keeps them updated as the codebase evolves
 - **`/guidelines-init`** codifies your standards → **`/guidelines-review`** enforces them automatically
-- **`/context-session`** records what changed at session end and picks it up next session
-
-Future `/cortex` skills will combine these systems for deeper integration.
+- **`/code-review`** and **`/ult-code-review`** catch violations in real-time, informed by the loaded context
 
 ## Key Concepts
 
-**Context Framework** stores structured project knowledge in `.context/` — status, architecture, conventions, decisions, and a master plan. Bootloader files (`CLAUDE.md` and `.github/copilot-instructions.md`) are read automatically by their respective AI tools, loading context without manual intervention. [Learn more →](docs/context-framework.md)
+**Context Framework** stores structured project knowledge in `.context/` — status, architecture, tooling conventions, decisions, and a master plan. Bootloader files (`CLAUDE.md` and `.github/copilot-instructions.md`) are read automatically, loading context without manual intervention. Each session the AI also loads `PROJECT_GUIDELINES.md` for code quality rules and updates it as the codebase evolves. [Learn more →](docs/context-framework.md)
 
 **Project Guidelines** come in two modes: **simple** (flat list of rules, no ceremony) and **full** (categorized with severity tags). Simple mode asks one question and generates a file. Full mode auto-detects conventions from 13+ signal files, runs a structured interview, and produces categorized guidelines. [Learn more →](docs/guidelines.md)
 
@@ -124,7 +129,7 @@ Future `/cortex` skills will combine these systems for deeper integration.
 <details>
 <summary>Do I need all three systems?</summary>
 
-No. Each system is independent. Use `/context-init` + `/context` for context management alone, `/guidelines-init` + `/guidelines-review` for standards enforcement alone, or `/code-review` for standalone code reviews. They complement each other but don't require each other.
+No. Each system is independent. Use `/context-init` + `/context-session` for context management alone, `/guidelines-init` + `/guidelines-review` for standards enforcement alone, or `/code-review` for standalone code reviews. They complement each other but don't require each other.
 </details>
 
 <details>

@@ -2,6 +2,13 @@
 
 All notable changes to claude-cortex are documented here.
 
+## [1.3.0] — 2026-04-03
+
+### Added
+- `/cortex-init` skill — full framework initialization that runs `/context-init` and `/guidelines-init` in parallel via two subagents (each scanning through a different lens), then coordinates the CONVENTIONS.md to PROJECT_GUIDELINES.md cross-reference. Supports `--simple` (default) and `--full` arguments for guidelines mode.
+
+---
+
 ## [1.2.0] — 2026-04-03
 
 ### Removed

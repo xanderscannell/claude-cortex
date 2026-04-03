@@ -1,6 +1,6 @@
 {
   "name": "claude-cortex",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Context management, project guidelines, and code review for AI coding assistants. Prevent context degradation, enforce coding standards, and get structured code reviews — all in one plugin.",
   "author": {
     "name": "xanderscannell",
@@ -9,6 +9,7 @@
   "license": "MIT",
   "homepage": "https://github.com/xanderscannell/claude-cortex",
   "skills": [
+    "./skills/cortex-init",
     "./skills/context-init",
     "./skills/context-session",
     "./skills/guidelines-init",
