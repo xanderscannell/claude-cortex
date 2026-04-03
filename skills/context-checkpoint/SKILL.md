@@ -11,6 +11,7 @@ Create a snapshot of your session's work. Checkpoints document what was accompli
 
 1. **Gather session context** by reading:
    - `.context/CURRENT_STATUS.md` — what was planned
+   - `.context/MASTER_PLAN.md` — current phase and task completion state
    - Recent git log and diff — what was actually done
    - `.context/DECISIONS.md` — any new decisions made
 
@@ -29,12 +30,14 @@ Create a snapshot of your session's work. Checkpoints document what was accompli
    - What comes next
    - Any new blockers or questions
 
-4. **Update the Current Focus section** in whichever bootloader files exist (`CLAUDE.md` and/or `.github/copilot-instructions.md`) if priorities changed
+4. **Update `.context/MASTER_PLAN.md`** — tick off all tasks completed this session (`- [ ]` → `- [x]`); if the phase is complete, mark its milestones done and update the active phase
 
-5. **Suggest a commit** to save the checkpoint:
-   ```bash
-   git add .context/CHECKPOINTS/ .context/CURRENT_STATUS.md CLAUDE.md .github/copilot-instructions.md
-   git commit -m "checkpoint: [brief description of session work]"
-   ```
+5. **Update the Current Focus section** in whichever bootloader files exist (`CLAUDE.md` and/or `.github/copilot-instructions.md`) if priorities changed
+
+6. **Suggest a commit** — provide a title and description based on what was worked on this session
 
 Use the template from `templates/context/CHECKPOINT_TEMPLATE.md` for the checkpoint file format.
+
+## Output Format
+
+Plain ASCII only. Non-ASCII characters and emojis are not allowed in any output.

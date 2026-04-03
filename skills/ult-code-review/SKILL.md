@@ -362,6 +362,12 @@ Collect all 10 agent outputs. Then:
 
 ---
 
+## Output Format
+
+Plain ASCII only. Non-ASCII characters and emojis are not allowed in any output.
+
+---
+
 ## Final Report
 
 ```

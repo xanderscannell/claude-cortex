@@ -23,12 +23,12 @@ If you see `[PLACEHOLDER]` markers (like `[CURRENT_TASK]`, `[PHASE_NAME]`, etc.)
 Before writing any code, read these files in order:
 
 1. **`.context/CURRENT_STATUS.md`** — what was accomplished last session, what's in progress, what's next
-2. **`.context/CONVENTIONS.md`** — coding standards to follow
-3. **`.context/ARCHITECTURE.md`** — system design and how components connect
+2. **`.context/MASTER_PLAN.md`** — full roadmap; confirm which phase is active and which tasks are already checked off
+3. **`.context/CONVENTIONS.md`** — coding standards to follow
+4. **`.context/ARCHITECTURE.md`** — system design and how components connect
 
 Read as needed based on the task:
 
-- `.context/MASTER_PLAN.md` — full roadmap, to understand where current work fits
 - `.context/DECISIONS.md` — past architectural decisions, to avoid re-debating settled questions
 
 ### Every Session — During Work
@@ -36,6 +36,7 @@ Read as needed based on the task:
 - **Follow CONVENTIONS.md** for all code you write
 - **Check DECISIONS.md** before proposing architectural changes — the decision may already be made
 - **Record new decisions** in `DECISIONS.md` when significant technical choices are made (use the ADR template)
+- **Tick off completed tasks** in `MASTER_PLAN.md` as soon as they are done — change `- [ ]` to `- [x]`
 
 ### Every Session — End
 
@@ -46,9 +47,10 @@ Before the session ends:
    - What's in progress
    - What should happen next
    - Any new blockers or open questions
-2. **Update this file's Current Focus section** if priorities changed
-3. **Create a checkpoint** in `.context/CHECKPOINTS/` if the session was long or made significant progress
-4. **Suggest a commit message** that includes both code and context changes — never commit or push automatically
+2. **Update `.context/MASTER_PLAN.md`** — ensure all tasks completed this session are checked off; if the active phase is now complete, mark its milestones done and note the next phase as active
+3. **Update this file's Current Focus section** if priorities changed
+4. **Create a checkpoint** in `.context/CHECKPOINTS/` if the session was long or made significant progress
+5. **Suggest a commit message** that includes both code and context changes — never commit or push automatically
 
 ## Current Focus
 

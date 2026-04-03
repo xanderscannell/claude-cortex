@@ -82,7 +82,11 @@ If testability is poor, include specific refactoring suggestions (extract interf
 - **Broken tests**: Will existing tests still pass with these changes, or do they need updating?
 - **Integration points**: Are interactions with external services, databases, or APIs tested (or at least mockable)?
 
-## 7. Output
+## 7. Output Format
+
+Plain ASCII only. Non-ASCII characters and emojis are not allowed in any output.
+
+## 8. Output
 
 **Changed files summary:**
 

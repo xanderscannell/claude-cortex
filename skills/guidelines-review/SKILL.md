@@ -261,6 +261,12 @@ After presenting the report, offer:
 
 ---
 
+## Output Format
+
+Plain ASCII only. Non-ASCII characters and emojis are not allowed in any output.
+
+---
+
 ## Review Principles (both modes)
 
 - **Be specific:** Always cite `file:line`, quote the rule, and suggest a fix.
