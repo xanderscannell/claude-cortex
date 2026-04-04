@@ -1,6 +1,6 @@
 {
   "name": "claude-cortex",
-  "version": "1.3.0",
+  "version": "1.3.2",
   "description": "Context management, project guidelines, and code review for AI coding assistants. Prevent context degradation, enforce coding standards, and get structured code reviews — all in one plugin.",
   "author": {
     "name": "xanderscannell",

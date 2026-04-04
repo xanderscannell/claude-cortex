@@ -62,7 +62,7 @@ Chat: Install Plugin From Source
 
 | Command | What it does |
 |---------|-------------|
-| `/cortex-init` | Full framework setup — runs `/context-init` and `/guidelines-init` in parallel via two subagents, then wires the two systems together |
+| `/cortex-init` | Full framework setup — runs `/context-init` then `/guidelines-init` in series, with a single combined commit |
 | `/context-init` | Scaffold `.context/` directory, `CLAUDE.md`, and `.github/copilot-instructions.md` with auto-detected project details |
 | `/context-session` | Load context at session start, update status and guidelines at session end |
 | `/guidelines-init` | Generate `PROJECT_GUIDELINES.md` — simple (flat rules) or `--full` (categorized + severity) |
@@ -110,7 +110,7 @@ claude-cortex/
 
 Each system works standalone, but they're stronger together:
 
-- **`/cortex-init`** sets up the full framework in one command — context + guidelines wired together from the start
+- **`/cortex-init`** sets up the full framework in one command — context first, then guidelines, cross-referenced automatically
 - **`/context-session`** loads conventions and guidelines at session start, keeps them updated as the codebase evolves
 - **`/guidelines-init`** codifies your standards → **`/guidelines-review`** enforces them automatically
 - **`/code-review`** and **`/ult-code-review`** catch universal best-practice violations in real-time — pair with **`/guidelines-review`** to also enforce project-specific rules
