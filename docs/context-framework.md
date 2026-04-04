@@ -20,7 +20,6 @@ Your Project
 │   ├── DECISIONS.md        ← Architecture Decision Records
 │   ├── MASTER_PLAN.md      ← Implementation roadmap
 │   ├── SETUP.md            ← Dev environment setup
-│   └── CHECKPOINTS/        ← Session summaries
 └── ...
 ```
 
@@ -35,11 +34,11 @@ The bootloader files (`CLAUDE.md` and `.github/copilot-instructions.md`) are rea
 
 ## Daily Workflow
 
-**Start of session**: Run `/context` (or let it auto-invoke). The assistant reads context files and understands project state.
+**Start of session**: Run `/context-session` (or let it auto-invoke). The assistant reads context files and understands project state.
 
 **During work**: The assistant follows `CONVENTIONS.md` for tooling setup and `PROJECT_GUIDELINES.md` for code quality rules, checks `DECISIONS.md` before proposing architectural changes, records new decisions when significant choices are made, and updates `PROJECT_GUIDELINES.md` when new patterns are adopted.
 
-**End of session**: The assistant updates `CURRENT_STATUS.md`, checks whether `PROJECT_GUIDELINES.md` needs updating based on what changed, creates a checkpoint if the session was significant, and suggests a commit.
+**End of session**: The assistant updates `CURRENT_STATUS.md`, checks whether `PROJECT_GUIDELINES.md` needs updating based on what changed, and suggests a commit.
 
 **Multi-machine sync**: Just `git pull`. Context travels with the code.
 
@@ -56,7 +55,6 @@ The bootloader files (`CLAUDE.md` and `.github/copilot-instructions.md`) are rea
 | `.context/CONVENTIONS.md` | Tooling and environment setup | Rarely |
 | `PROJECT_GUIDELINES.md` | Code quality rules (naming, architecture, testing, security) | When patterns evolve |
 | `.context/SETUP.md` | Dev environment setup | Rarely |
-| `.context/CHECKPOINTS/` | Session summaries | End of long sessions |
 
 ## What to Customize
 

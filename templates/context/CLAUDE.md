@@ -53,7 +53,7 @@ Before the session ends:
    - Any new blockers or open questions
 2. **Update `.context/MASTER_PLAN.md`** — ensure all tasks completed this session are checked off; if the active phase is now complete, mark its milestones done and note the next phase as active
 3. **Update this file's Current Focus section** if priorities changed
-4. **Create a checkpoint** in `.context/CHECKPOINTS/` if the session was long or made significant progress
+4. **Check if `PROJECT_GUIDELINES.md` needs updating** — if the session introduced new architectural patterns, error handling strategies, testing conventions, new dependencies, or coding conventions, update `PROJECT_GUIDELINES.md` directly or note it for next session
 5. **Suggest a commit message** that includes both code and context changes — never commit or push automatically
 
 ## Current Focus
@@ -72,5 +72,4 @@ Before the session ends:
 | `.context/DECISIONS.md` | Architecture Decision Records |
 | `.context/CONVENTIONS.md` | Tooling, environment, and build commands |
 | `.context/SETUP.md` | Dev environment setup |
-| `.context/CHECKPOINTS/` | Session summaries |
 | `PROJECT_GUIDELINES.md` | Code quality rules — update as codebase evolves |

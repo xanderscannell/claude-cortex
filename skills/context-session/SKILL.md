@@ -48,16 +48,14 @@ At the END of each session:
 
 3. **Update the Current Focus section** in whichever bootloader files exist (`CLAUDE.md` and/or `.github/copilot-instructions.md`) if priorities changed
 
-4. **Check if PROJECT_GUIDELINES.md needs updating** — if the session introduced any of the following, update `PROJECT_GUIDELINES.md` directly or note it in the checkpoint's "next session" section:
+4. **Check if PROJECT_GUIDELINES.md needs updating** — if the session introduced any of the following, update `PROJECT_GUIDELINES.md` directly or note it for next session:
    - New architectural patterns or module boundaries
    - New error handling strategies
    - New testing patterns or conventions
    - New dependencies that change the tech stack
    - Decisions that establish new coding conventions
 
-5. **Create a checkpoint** in `.context/CHECKPOINTS/` if the session was long or made significant progress. Use the template at `templates/context/CHECKPOINT_TEMPLATE.md` for the checkpoint file format.
-
-6. **Suggest a commit** — provide a title and description based on what was worked on this session
+5. **Suggest a commit** — provide a title and description based on what was worked on this session
 
 ## File Reference
 
@@ -72,7 +70,6 @@ At the END of each session:
 | `.context/CONVENTIONS.md` | Tooling, environment, and build commands | Rarely |
 | `PROJECT_GUIDELINES.md` | Code quality rules (naming, architecture, testing, security) | When patterns evolve |
 | `.context/SETUP.md` | Dev environment setup | Rarely |
-| `.context/CHECKPOINTS/` | Session summaries and snapshots | End of long sessions |
 
 ## Need to Initialize?
 

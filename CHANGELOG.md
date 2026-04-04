@@ -2,6 +2,23 @@
 
 All notable changes to claude-cortex are documented here.
 
+## [1.3.1] — 2026-04-03
+
+### Removed
+- Checkpoint functionality — `CHECKPOINT_TEMPLATE.md` deleted, `.context/CHECKPOINTS/` directory no longer created by `/context-init`, checkpoint creation step removed from `/context-session` and both bootloader templates. `CURRENT_STATUS.md` already captures session state; checkpoints added file bloat without practical benefit.
+
+### Fixed
+- Both bootloader templates (`CLAUDE.md`, `copilot-instructions.md`) session-end steps now match `/context-session` exactly — added missing step 4 (PROJECT_GUIDELINES.md staleness check) and renumbered remaining steps to 4 and 5
+- `docs/context-framework.md` stale `/context` reference updated to `/context-session` (renamed in v1.1.1)
+- README code-review description no longer claims `/code-review` is "informed by the loaded context" — reworded to accurately describe it as universal best-practice review, with a pointer to `/guidelines-review` for project-specific enforcement
+- README and FAQ updated to accurately reflect context/guidelines integration depth since v1.2.0 — "work independently" language now reads "work independently, but integrate deeply when used together"
+- `context-init` After Initialization section now mentions `/cortex-init` as the preferred single-command setup for new projects
+- `context-init` After Initialization section duplicate step number (two items numbered "6") corrected to 6 and 7
+- `guidelines-init` simple and full mode generation now adds a CONVENTIONS.md back-reference note in the Overview when `.context/CONVENTIONS.md` exists, so users editing guidelines can find tooling documentation
+- `guidelines-review` full mode now instructs the reviewer to read `.context/CONVENTIONS.md` for reliable tooling detection rather than guessing
+
+---
+
 ## [1.3.0] — 2026-04-03
 
 ### Added

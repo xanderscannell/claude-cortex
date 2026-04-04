@@ -129,6 +129,9 @@ Write `PROJECT_GUIDELINES.md` with this format:
 - Do NOT add rules the user did not mention.
 - Do NOT add severity tags. A rule is a rule — if it's in the file, it matters.
 - Do NOT add category headings (Code Style, Architecture, etc.).
+- If `.context/CONVENTIONS.md` exists, end the Overview paragraph with: "Tooling and
+  environment setup (formatter, linter, test runner, build commands) are documented in
+  `.context/CONVENTIONS.md`."
 
 After writing, if a CONVENTIONS.md migration was performed (see CONVENTIONS.md Integration above), update `.context/CONVENTIONS.md` now — remove the migrated sections and ensure the `## Project Guidelines Reference` section is present.
 
@@ -300,6 +303,9 @@ Template:
 - Each bullet should be independently actionable.
 - Use the project's own code as examples wherever possible.
 - Omit sections that don't apply to the project entirely, don't leave them blank.
+- If `.context/CONVENTIONS.md` exists, end the Overview paragraph with: "Tooling and
+  environment setup (formatter, linter, test runner, build commands) are documented in
+  `.context/CONVENTIONS.md`."
 
 ### Phase 4 — Confirm
 

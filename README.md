@@ -2,7 +2,7 @@
 
 Context management, project guidelines, and code review for AI coding assistants — all in one plugin.
 
-Three systems that work independently or together:
+Three systems that work independently, but integrate deeply when used together:
 
 - **Context Framework** — Persistent project context that prevents AI assistants from losing track between sessions
 - **Project Guidelines** — Define and enforce coding standards with automated compliance reviews
@@ -96,7 +96,6 @@ claude-cortex/
 |       |-- DECISIONS.md         # ADR template
 |       |-- MASTER_PLAN.md       # Roadmap template
 |       |-- SETUP.md             # Dev setup template
-|       |-- CHECKPOINT_TEMPLATE.md  # Checkpoint format
 |-- references/
 |   |-- guideline-categories.md  # Per-stack example rules (JS/TS, Python, Go, Rust)
 |-- docs/
@@ -114,7 +113,7 @@ Each system works standalone, but they're stronger together:
 - **`/cortex-init`** sets up the full framework in one command — context + guidelines wired together from the start
 - **`/context-session`** loads conventions and guidelines at session start, keeps them updated as the codebase evolves
 - **`/guidelines-init`** codifies your standards → **`/guidelines-review`** enforces them automatically
-- **`/code-review`** and **`/ult-code-review`** catch violations in real-time, informed by the loaded context
+- **`/code-review`** and **`/ult-code-review`** catch universal best-practice violations in real-time — pair with **`/guidelines-review`** to also enforce project-specific rules
 
 ## Key Concepts
 
@@ -129,7 +128,7 @@ Each system works standalone, but they're stronger together:
 <details>
 <summary>Do I need all three systems?</summary>
 
-No. Each system is independent. Use `/context-init` + `/context-session` for context management alone, `/guidelines-init` + `/guidelines-review` for standards enforcement alone, or `/code-review` for standalone code reviews. They complement each other but don't require each other.
+Not necessarily. Each system works standalone. Use `/context-init` + `/context-session` for context management alone, `/guidelines-init` + `/guidelines-review` for standards enforcement alone, or `/code-review` for standalone code reviews. That said, since v1.2.0 the context framework loads and updates `PROJECT_GUIDELINES.md` as part of its session lifecycle, so the two frameworks integrate deeply when used together. `/cortex-init` sets both up in one command.
 </details>
 
 <details>

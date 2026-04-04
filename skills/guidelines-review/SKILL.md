@@ -284,4 +284,6 @@ Plain ASCII only. Non-ASCII characters and emojis are not allowed in any output.
   deliberately.
 - **Skip tooling-enforced rules (full mode only):** If a linter or formatter already
   enforces a rule and runs in CI, mark it as "Enforced by tooling" and move on.
-  Only mark as enforced if the tool clearly covers the entire category.
+  Only mark as enforced if the tool clearly covers the entire category. Read
+  `.context/CONVENTIONS.md` if it exists — it lists the exact formatter, linter,
+  type checker, and test runner, giving you reliable tooling information without guessing.

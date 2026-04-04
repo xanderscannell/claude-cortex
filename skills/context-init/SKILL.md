@@ -44,15 +44,12 @@ When the user runs `/context-init`:
    > 5. `MASTER_PLAN.md` — Implementation roadmap and phases
    > 6. `SETUP.md` — Dev environment setup instructions
 
-   The bootloader and `CHECKPOINTS/` directory are always created regardless of selection.
-
    Only create the selected context files in the steps below.
 
-4. **Create the directory structure** — Create `.context/` and `CHECKPOINTS/` subdirectory. Only include selected context files:
+4. **Create the directory structure** — Create `.context/` and only the selected context files:
    ```
    .context/
-   ├── [selected files...]
-   └── CHECKPOINTS/
+   └── [selected files...]
    ```
 
 5. **Create files from templates** — Copy from `templates/context/` to target locations. Create the bootloader for the detected environment (step 1), and only the context files the user selected (step 3):
@@ -104,6 +101,6 @@ Once files are created and placeholders filled:
    - `ARCHITECTURE.md` — Refine system design (if created)
 5. **Mention PROJECT_GUIDELINES.md**:
    - If `PROJECT_GUIDELINES.md` already exists: note that it was detected and `CONVENTIONS.md` references it as the source of truth for code quality rules
-   - If `PROJECT_GUIDELINES.md` does not exist: recommend running `/guidelines-init` to create code quality rules (naming, architecture, error handling, testing, security, performance, git workflow) — explain that `CONVENTIONS.md` covers tooling/environment while `PROJECT_GUIDELINES.md` covers code quality standards
+   - If `PROJECT_GUIDELINES.md` does not exist: recommend running `/guidelines-init` to create code quality rules (naming, architecture, error handling, testing, security, performance, git workflow) — explain that `CONVENTIONS.md` covers tooling/environment while `PROJECT_GUIDELINES.md` covers code quality standards. For new projects, mention that `/cortex-init` sets up both context and guidelines in one command.
 6. If the user chose a subset of context files, mention they can add more later by running `/context-init` again
-6. Suggest the commit command shown above
+7. Suggest the commit command shown above
